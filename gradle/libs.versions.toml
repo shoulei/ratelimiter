@@ -1,0 +1,11 @@
+[versions]
+jupiterVersion = "5.12.2"
+kotlin = "2.0.21"
+coroutines = "1.9.0"
+
+[libraries]
+kotlinx-coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutines" }
+junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "jupiterVersion" }
+
+[plugins]
+kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
