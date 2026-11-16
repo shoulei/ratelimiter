@@ -36,13 +36,13 @@ class TokenBucketAlgorithm(): AlgorithmInterface {
         val oldState = state as? TokenBucketState?: TokenBucketState(config.capacity.toDouble(), now)
         val elapsedTime  = (now - oldState.lastRefillTime).coerceAtLeast(0L)
         val tokenNow = (oldState.tokens + elapsedTime * refillRate).coerceAtMost(config.capacity.toDouble())
-        val allow = tokenNow >= 1.0
-        val remainToken = if (allow) tokenNow - 1.0 else tokenNow
-        val retry: Long? = if (allow) null else ceil((1 - tokenNow) / refillRate).toLong()
+        val allowed = tokenNow >= 1.0
+        val remainToken = if (allowed) tokenNow - 1.0 else tokenNow
+        val retry: Long? = if (allowed) null else ceil((1 - tokenNow) / refillRate).toLong()
 
         return AlgorithmResult(
             state = TokenBucketState(tokens = remainToken, lastRefillTime = now),
-            decision = LimitDecision(isAllowed = allow, remaining = remainToken.toInt(), retryAfterMs = retry)
+            decision = LimitDecision(isAllowed = allowed, remaining = remainToken.toInt(), retryAfterMs = retry)
         )
     }
 }
