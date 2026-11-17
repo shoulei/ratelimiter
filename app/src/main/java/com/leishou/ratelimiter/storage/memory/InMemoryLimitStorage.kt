@@ -10,7 +10,7 @@ import java.util.concurrent.ConcurrentHashMap
 class InMemoryLimitStorage(): StorageInterface {
     private val states = ConcurrentHashMap<LimitKey, LimitState>()
     override fun update(key: LimitKey, updater: (LimitState?) -> AlgorithmResult): LimitDecision {
-        var decision: LimitDecision = LimitDecision(true)
+        var decision = LimitDecision(true)
         states.compute(key) { _, oldState ->
             val result = updater(oldState)
             decision = result.decision
