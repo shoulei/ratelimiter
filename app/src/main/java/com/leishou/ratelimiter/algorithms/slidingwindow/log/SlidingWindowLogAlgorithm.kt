@@ -16,7 +16,7 @@ import com.leishou.ratelimiter.model.LimitState
 class SlidingWindowLogAlgorithm(): AlgorithmInterface {
     override fun evaluate(state: LimitState?, config: LimitAlgorithmConfig, now: Long): AlgorithmResult {
         require(config is SlidingWindowConfig) {
-            "SlidingWindowLogAlgorithm requires LimitAlgorithmConfig"
+            "SlidingWindowLogAlgorithm requires SlidingWindowConfig"
         }
 
         state?.let {

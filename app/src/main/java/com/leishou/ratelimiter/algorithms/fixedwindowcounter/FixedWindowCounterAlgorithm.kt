@@ -1,13 +1,17 @@
 package com.leishou.ratelimiter.algorithms.fixedwindowcounter
 
-import com.leishou.ratelimiter.algorithms.slidingwindow.SlidingWindowConfig
-import com.leishou.ratelimiter.algorithms.slidingwindow.counter.SlidingWindowCounterState
 import com.leishou.ratelimiter.model.AlgorithmInterface
 import com.leishou.ratelimiter.model.AlgorithmResult
 import com.leishou.ratelimiter.model.LimitAlgorithmConfig
 import com.leishou.ratelimiter.model.LimitDecision
 import com.leishou.ratelimiter.model.LimitState
 
+/*
+    Fixed Window Counter algorithm divides time into fixed, non-overlapping intervals (windows) and
+    uses a single counter to track the number of requests within the current window. If the counter
+    exceeds a predefined threshold, new requests are rejected until the next time window begins and
+    the counter resets to zero.
+ */
 class FixedWindowCounterAlgorithm(): AlgorithmInterface {
     override fun evaluate(state: LimitState?, config: LimitAlgorithmConfig, now: Long): AlgorithmResult {
         require(config is FixedWindowCounterConfig) {
